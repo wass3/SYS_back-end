@@ -1,0 +1,24 @@
+{
+  "name": "sys_back-end",
+  "version": "1.0.0",
+  "description": "Un proyecto de NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wass3/SYS_back-end.git"
+  },
+  "author": "Wassim Atiki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wass3/SYS_back-end/issues"
+  },
+  "homepage": "https://github.com/wass3/SYS_back-end#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "mysql2": "^3.9.7"
+  }
+}
