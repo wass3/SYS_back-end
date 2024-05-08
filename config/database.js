@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('sys_database', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
+  port: 3306
 });
 
 async function testConnection() {
@@ -13,5 +14,5 @@ async function testConnection() {
         console.error('No se pudo conectar a la base de datos:', error);
     }
 }
-  
+testConnection();
 module.exports = sequelize;

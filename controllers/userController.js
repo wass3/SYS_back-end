@@ -13,6 +13,10 @@ const userController = {
     }
   },
 
+  test: async (req, res) => {
+    res.send('funciona perfe');
+  },
+
   // Crear un nuevo usuario
   createUser: async (req, res) => {
     const { user_handler, name, surname, biography, email_address, password, user_img } = req.body;

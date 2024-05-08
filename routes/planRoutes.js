@@ -1,4 +1,4 @@
-import { Router } from "express";
+/*import { Router } from "express";
 
 export const planRouter = Router();
 
@@ -15,4 +15,4 @@ planRouter.get("/", (req, res) => {
 planRouter.get("/:id", (req, res) => {
     const { id } = req.params;
     const plan = plan.find(p => p.id === id);
-})
+})*/
