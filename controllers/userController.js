@@ -1,12 +1,18 @@
-const User = require('../models/userModel');
+const User = require('../models/userModel.js');
 
 // Controlador para manejar las operaciones relacionadas con los usuarios
 const userController = {
   // Obtener todos los usuarios
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.findAll();
-      res.status(200).json(users);
+      console.log('Obteniendo usuarios...');
+      const user = await User.findAll();
+      console.log('Usuarios obtenidos:', user);
+      res.status(200).json({
+        ok: true,
+        status: 200,
+        user: user
+      });
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
       res.status(500).json({ error: 'Error al obtener usuarios' });
@@ -21,13 +27,23 @@ const userController = {
   createUser: async (req, res) => {
     const { user_handler, name, surname, biography, email_address, password, user_img } = req.body;
     try {
-      const newUser = await User.create({ user_handler, name, surname, biography, email_address, password, user_img });
+      const newUser = await User.create({
+        user_handler,
+        name,
+        surname,
+        biography,
+        email_address,
+        password,
+        user_img,
+      });
       res.status(201).json(newUser);
     } catch (error) {
       console.error('Error al crear usuario:', error);
       res.status(500).json({ error: 'Error al crear usuario' });
     }
   },
+
+
 
   // Obtener un usuario por su ID
   getUserById: async (req, res) => {
@@ -79,6 +95,6 @@ const userController = {
       res.status(500).json({ error: 'Error al eliminar usuario' });
     }
   }
-};
+  };
 
-module.exports = userController;
+  module.exports = userController;

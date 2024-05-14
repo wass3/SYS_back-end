@@ -1,18 +1,17 @@
-/*import { Router } from "express";
+const router = require('express').Router();
+const planController = require('../controllers/planController.js');
 
-export const planRouter = Router();
+const planRoute = router;
+module.exports = planRoute;
 
-planRouter.get("/", (req, res) => {
-    const { id } = req.params;
-    const plan = plan.find(p => p.id === id);
 
-    if (!plan) {
-        res.status(404).send('Plan no encontrado');
-    }
-    res.status(201).json(req.body);
-})
+planRoute.get('/', planController.getAllPlans);
+planRoute.get('/test', planController.test);
 
-planRouter.get("/:id", (req, res) => {
-    const { id } = req.params;
-    const plan = plan.find(p => p.id === id);
-})*/
+planRoute.post('/create', planController.createPlan);
+
+planRoute.get('/:id', planController.getPlanById);
+
+planRoute.put('/:id', planController.updatePlan);
+
+planRoute.delete('/:id', planController.deletePlan);

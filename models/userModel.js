@@ -1,13 +1,13 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database');
+const {  DataTypes, Model } = require('sequelize');
+const sequelize = require('../config/database.js');
 
 class User extends Model {}
 
 User.init({
   user_id: {
-    type: DataTypes.UUID,
+    type: DataTypes.INTEGER,
     primaryKey: true,
-    defaultValue: DataTypes.UUIDV4
+    autoIncrement: true
   },
   user_handler: {
     type: DataTypes.STRING,
@@ -37,7 +37,13 @@ User.init({
   }
 }, {
   sequelize,
-  modelName: 'user'
+  modelName: 'user',
+  freezeTableName: true,
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: false
 });
+
+console.log(User === sequelize.models.user);
 
 module.exports = User;
