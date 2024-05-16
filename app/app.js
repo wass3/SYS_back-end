@@ -14,6 +14,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRouter);
 app.use('/api/plan', planRouter);
-
+app.use('/api/followers', followersRouter);
 
 module.exports = app;

@@ -34,6 +34,8 @@ Plan.init({
     updatedAt: false
 });
 
+Plan.hasMany(User);
+
 console.log(Plan === sequelize.models.plan);
 
 module.exports = Plan;
