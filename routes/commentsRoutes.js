@@ -12,7 +12,7 @@ commentsRoute.get('/plan/:plan_id', commentsController.getCommentsByPlanId);
 commentsRoute.get('/:id', commentsController.getCommentById);
 
 // añadir un comentario a un plan
-commentsRoute.post('/plan/:plan_id', commentsController.addComment);ç
+commentsRoute.post('/plan/:plan_id', commentsController.addComment);
 
 // actualizar un comentario existente
 commentsRoute.put('/:id', commentsController.updateComment);

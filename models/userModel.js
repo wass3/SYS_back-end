@@ -1,7 +1,6 @@
 const {  DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database.js');
 
-const Plan = require('./planModel.js');
 
 class User extends Model {}
 
@@ -46,7 +45,6 @@ User.init({
   updatedAt: false
 });
 
-User.hasMany(Plan);
 
 console.log(User === sequelize.models.user);
 

@@ -6,7 +6,6 @@ module.exports = followersRoute;
 
 
 followersRoute.get('/', followersController.getAllFollowers);
-followersRoute.get('/test', followersController.test);
 
 followersRoute.get('/:followed_id', followersController.getFollowersByFollowedId);
 followersRoute.get('/:follower_id', followersController.getFollowersByFollowerId);

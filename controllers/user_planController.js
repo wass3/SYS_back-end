@@ -88,4 +88,4 @@ const user_planController = {
 
 }
 
-
+module.exports = user_planController;

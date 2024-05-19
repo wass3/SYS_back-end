@@ -84,3 +84,5 @@ const followersController = {
     }
 };
 
+module.exports = followersController;
+
