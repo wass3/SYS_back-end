@@ -35,4 +35,3 @@ Comments.init({
 
 
 module.exports = Comments
-
