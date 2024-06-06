@@ -1,5 +1,8 @@
 const User = require('../models/userModel.js');
 
+const { supabase } = require('../config/supabase.js');
+
+
 // Controlador para manejar las operaciones relacionadas con los usuarios
 const userController = {
   // Obtener todos los usuarios
@@ -36,10 +39,31 @@ const userController = {
         password,
         user_img,
       });
+
+      supabase.createUser({
+        email: email_address,
+        password: password
+      })
       res.status(201).json(newUser);
     } catch (error) {
       console.error('Error al crear usuario:', error);
       res.status(500).json({ error: 'Error al crear usuario' });
+    }
+  },
+
+  // Iniciar sesión
+  login: async (req, res) => {
+    const { email_address, password } = req.body;
+    try {
+      const user = await User.findOne({ where: { email_address } });
+      if (user && (await user.comparePassword(password))) {
+        res.status(200).json({ token: user.generateToken() });
+      } else {
+        res.status(401).json({ error: 'Credenciales inválicas' });
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      res.status(500).json({ error: 'Error al iniciar sesión' });
     }
   },
 
@@ -86,7 +110,7 @@ const userController = {
       const user = await User.findByPk(userId);
       if (user) {
         await user.destroy();
-        res.status(204).end();
+        res.status(200).json({ message: 'Usuario eliminado exitosamente' });
       } else {
         res.status(404).json({ error: 'Usuario no encontrado' });
       }

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/wass3/SYS_back-end#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.43.4",
     "express": "^4.19.2",
     "http": "^0.0.1-security",
     "morgan": "^1.10.0",

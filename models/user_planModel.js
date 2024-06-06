@@ -1,26 +1,36 @@
-const {  DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database.js');
+const User = require('./userModel');
+const Plan = require('./planModel');
 
-class User_plan extends Model {}
+class UserPlan extends Model {}
 
-User_plan.init({
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+UserPlan.init({
+  user_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'user_id'
     },
-    plan_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+    allowNull: false,
+    primaryKey: true
+  },
+  plan_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Plan,
+      key: 'plan_id'
+    },
+    allowNull: false,
+    primaryKey: true
+  }
 }, {
-    sequelize,
-    modelName: 'user_plan',
-    freezeTableName: true,
-    timestamps: true,
-    createdAt: false,
-    updatedAt: false
+  sequelize,
+  modelName: 'User_Plan',
+  freezeTableName: true,
+  timestamps: true,
+  createdAt: false,
+  updatedAt: false
 });
 
-console.log(User_plan === sequelize.models.user_plan);
-
-module.exports = User_plan
+module.exports = UserPlan;

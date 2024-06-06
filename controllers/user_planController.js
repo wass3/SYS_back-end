@@ -56,11 +56,18 @@ const user_planController = {
     addUser_plan: async (req, res) => {
         const { user_id, plan_id } = req.params;
         try {
-            await User_Plan.create({
-                user_id: user_id,
-                plan_id: plan_id
+            const user_planExists = await User_Plan.findOne({
+                where: { user_id: user_id, plan_id: plan_id }
             });
-            res.status(201).end();
+            if (!user_planExists) {
+                await User_Plan.create({
+                    user_id: user_id,
+                    plan_id: plan_id
+                });
+                res.status(201).json({ message: 'relación user_plan creada correctamente' });
+            } else {
+                res.status(400).json({ error: 'El usuario ya está en el plan' });
+            }
         } catch (error) {
             console.error('Error al añadir user_plan:', error);
             res.status(500).json({ error: 'Error al añadir user_plan' });
@@ -76,7 +83,7 @@ const user_planController = {
             });
             if (user_plan) {
                 await user_plan.destroy();
-                res.status(204).end();
+                res.status(204).json({ message: 'user_plan eliminado correctamente' });
             } else {
                 res.status(404).json({ error: 'user_plan no encontrado' });
             }

@@ -1,26 +1,36 @@
-const {  DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database.js');
+const User = require('./userModel');
 
-class Followers extends Model {}
+class Follower extends Model {}
 
-Followers.init({
-    followe_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+Follower.init({
+  follower_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'user_id'
     },
-    followed_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+    allowNull: false,
+    primaryKey: true
+  },
+  followed_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'user_id'
+    },
+    allowNull: false,
+    primaryKey: true
+  }
 }, {
-    sequelize,
-    modelName: 'followers',
-    freezeTableName: true,
-    timestamps: true,
-    createdAt: false,
-    updatedAt: false
+  sequelize,
+  modelName: 'Followers',
+  freezeTableName: true,
+  timestamps: true,
+  createdAt: false,
+  updatedAt: false
+
 });
 
-
-module.exports = Followers
-
+module.exports = Follower;

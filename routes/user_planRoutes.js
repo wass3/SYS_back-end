@@ -14,9 +14,9 @@ user_planRoute.get('/plan/:plan_id/users', user_planController.getUser_plansByPl
 
 
 // añadir un usuario a un plan
-user_planRoute.post('/user/:user_id/plan/:plan_id', user_planController.addUser_plan);
+user_planRoute.post('/:plan_id/:user_id', user_planController.addUser_plan);
 
 
 // Borrar un usuario de un plan
-user_planRoute.delete('/user/:user_id/plan/:plan_id', user_planController.deleteUser_plan);
+user_planRoute.delete('/:plan_id/:user_id', user_planController.deleteUser_plan);
 

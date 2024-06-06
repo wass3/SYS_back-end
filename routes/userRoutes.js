@@ -8,7 +8,9 @@ module.exports = userRoute;
 userRoute.get('/', userController.getAllUsers);
 userRoute.get('/test', userController.test);
 
-userRoute.post('/create', userController.createUser);
+userRoute.post('/register', userController.createUser);
+
+userRoute.get('/login', userController.login);
 
 userRoute.get('/:id', userController.getUserById);
 

@@ -7,8 +7,17 @@ module.exports = followersRoute;
 
 followersRoute.get('/', followersController.getAllFollowers);
 
-followersRoute.get('/:followed_id', followersController.getFollowersByFollowedId);
-followersRoute.get('/:follower_id', followersController.getFollowersByFollowerId);
+//Obtener todos los seguidores de un usuario
+followersRoute.get('/seguidores/:followed_id', followersController.getFollowersByFollowedId);
+
+//Obtener el número de seguidores de un usuario
+followersRoute.get('/seguidores/:followed_id/numero', followersController.getNumberOfFollowers);
+
+//Obtener todos los seguidos de un usuario
+followersRoute.get('/seguidos/:follower_id', followersController.getFollowersByFollowerId);
+
+//Obtener el número de seguidos de un usuario
+followersRoute.get('/seguidos/:follower_id/numero', followersController.getNumberOfFollowed);
 
 
 followersRoute.post('/follow', followersController.follow);
