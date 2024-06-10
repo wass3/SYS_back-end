@@ -19,6 +19,26 @@ const planController = {
         }
     },
 
+    // Obtener los planes para un día específico
+    getPlansForDay: async (req, res) => {
+        const day = req.params.day;
+        try {
+        console.log('Obteniendo planes para el día:', day);
+        const plan = await Plan.findAll({
+            where: { dayhour: day },
+        });
+        console.log('Planes obtenidos para el día:', plan);
+        res.status(200).json({
+            ok: true,
+            status: 200,
+            plan: plan
+        });
+        } catch (error) {
+        console.error('Error al obtener planes para el día:', error);
+        res.status(500).json({ error: 'Error al obtener planes para el día' });
+        }
+    },
+
     test: async (req, res) => {
         res.send('funciona perfe');
     },
@@ -94,4 +114,5 @@ const planController = {
 };
 
     module.exports = planController;
+
 

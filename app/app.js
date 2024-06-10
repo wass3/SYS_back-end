@@ -5,6 +5,7 @@ const planRouter = require('../routes/planRoutes');
 const followersRouter = require('../routes/followersRoutes');
 const user_planRouter = require('../routes/user_planRoutes');
 const commentsRouter = require('../routes/commentsRoutes');
+const disponibilityRouter = require('../routes/dispRoutes');
 const app = express();
 
 
@@ -20,5 +21,6 @@ app.use('/api/plan', planRouter);
 app.use('/api/followers', followersRouter);
 app.use('/api/user_plan', user_planRouter);
 app.use('/api/comments', commentsRouter);
+app.use('/api/disp', disponibilityRouter);
 
 module.exports = app;
