@@ -19,6 +19,7 @@ const disponibilityController = {
 
     getDisponibilityByUserId: async (req, res) => {
         const userId = req.params.user_id;
+        console.log('user_id: ', userId);
         try {
             const disponibilities = await Disponibility.findAll({
                 where: {

@@ -1,6 +1,8 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database.js');
 
+const User = require('./userModel');
+
 class Disponibility extends Model {}
 
 Disponibility.init({
@@ -35,6 +37,13 @@ Disponibility.init({
     freezeTableName: true,
     timestamps: false
 });
+
+Disponibility.associate = (models) => {
+    Disponibility.belongsTo(models.User, {
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE'
+    });
+};
 
 module.exports = Disponibility
 
