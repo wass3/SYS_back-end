@@ -1,20 +1,18 @@
+// userController.js
 const User = require('../models/userModel.js');
 
 const { supabase } = require('../config/supabase.js');
 
-
-// Controlador para manejar las operaciones relacionadas con los usuarios
 const userController = {
-  // Obtener todos los usuarios
   getAllUsers: async (req, res) => {
     try {
       console.log('Obteniendo usuarios...');
-      const user = await User.findAll();
-      console.log('Usuarios obtenidos:', user);
+      const users = await User.findAll();
+      console.log('Usuarios obtenidos:', users);
       res.status(200).json({
         ok: true,
         status: 200,
-        user: user
+        users: users
       });
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
@@ -22,11 +20,25 @@ const userController = {
     }
   },
 
+  getUserByEmail: async (req, res) => {
+    const { email_address } = req.params;
+    try {
+      const user = await User.findOne({ where: { email_address } });
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+    } catch (error) {
+      console.error('Error al obtener usuario por email:', error);
+      res.status(500).json({ error: 'Error al obtener usuario por email' });
+    }
+  },
+
   test: async (req, res) => {
     res.send('funciona perfe');
   },
 
-  // Crear un nuevo usuario
   createUser: async (req, res) => {
     const { user_handler, name, surname, biography, email_address, password, user_img } = req.body;
     try {
@@ -40,10 +52,6 @@ const userController = {
         user_img,
       });
 
-      supabase.createUser({
-        email: email_address,
-        password: password
-      })
       res.status(201).json(newUser);
     } catch (error) {
       console.error('Error al crear usuario:', error);
@@ -51,15 +59,19 @@ const userController = {
     }
   },
 
-  // Iniciar sesión
   login: async (req, res) => {
     const { email_address, password } = req.body;
     try {
       const user = await User.findOne({ where: { email_address } });
       if (user && (await user.comparePassword(password))) {
-        res.status(200).json({ token: user.generateToken() });
+        const token = user.generateToken();
+        const userData = {
+          ...user.dataValues,
+          token,
+        };
+        res.status(200).json(userData);
       } else {
-        res.status(401).json({ error: 'Credenciales inválicas' });
+        res.status(401).json({ error: 'Credenciales inválidas' });
       }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -67,9 +79,6 @@ const userController = {
     }
   },
 
-
-
-  // Obtener un usuario por su ID
   getUserById: async (req, res) => {
     const userId = req.params.id;
     try {
@@ -85,7 +94,6 @@ const userController = {
     }
   },
 
-  // Actualizar un usuario existente
   updateUser: async (req, res) => {
     const userId = req.params.id;
     const { user_handler, name, surname, biography, email_address, password, user_img } = req.body;
@@ -103,7 +111,6 @@ const userController = {
     }
   },
 
-  // Eliminar un usuario
   deleteUser: async (req, res) => {
     const userId = req.params.id;
     try {
@@ -119,6 +126,7 @@ const userController = {
       res.status(500).json({ error: 'Error al eliminar usuario' });
     }
   }
-  };
+};
 
-  module.exports = userController;
+module.exports = userController;
+

@@ -1,8 +1,22 @@
-const {  DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../config/database.js');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
+require('dotenv').config();
+const JWT_SECRET = process.env.JWT_SECRET; // Debes almacenar esto en una variable de entorno en producción
 
-class User extends Model {}
+class User extends Model {
+  // Método para comparar la contraseña
+  async comparePassword(password) {
+    return await bcrypt.compare(password, this.password);
+  }
+
+  // Método para generar token
+  generateToken() {
+    return jwt.sign({ id: this.user_id, email: this.email_address }, JWT_SECRET, { expiresIn: '1h' });
+  }
+}
 
 User.init({
   user_id: {
@@ -31,7 +45,12 @@ User.init({
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value) {
+      // Guarda la contraseña hasheada
+      const salt = bcrypt.genSaltSync(10);
+      this.setDataValue('password', bcrypt.hashSync(value, salt));
+    }
   },
   user_img: {
     type: DataTypes.STRING
@@ -44,7 +63,6 @@ User.init({
   createdAt: 'created_at',
   updatedAt: false
 });
-
 
 console.log(User === sequelize.models.user);
 
