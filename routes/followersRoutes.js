@@ -20,6 +20,6 @@ followersRoute.get('/seguidos/:follower_id', followersController.getFollowersByF
 followersRoute.get('/seguidos/:follower_id/numero', followersController.getNumberOfFollowed);
 
 
-followersRoute.post('/follow', followersController.follow);
+followersRoute.post('/follow/:follower_id/:follower_id', followersController.follow);
 
 followersRoute.delete('/unfollow/:follower_id/:followed_id', followersController.unfollow);
